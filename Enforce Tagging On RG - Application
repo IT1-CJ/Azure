@@ -1,0 +1,133 @@
+{
+  "properties": {
+    "displayName": "Enforce Tagging On RG - Application (updated)",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "Enforces tag and value on RG",
+    "metadata": {
+      "category": "Tagging Enforcement",
+      "createdBy": "932afd75-7811-42c8-9e5e-1d37e2b74db8",
+      "createdOn": "2023-08-25T20:16:25.9439481Z",
+      "updatedBy": "66fd68bb-83a0-4a3d-88b7-21bad65d916e",
+      "updatedOn": "2023-12-21T16:07:43.2549826Z"
+    },
+    "version": "1.0.0",
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the audit policy"
+        },
+        "allowedValues": [
+          "Audit",
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      },
+      "tagName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Application",
+          "description": "Name of the tag, such as 'Application'"
+        },
+        "defaultValue": "Application"
+      },
+      "listofallowedtagValues": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Tag Values",
+          "description": "Value of the tag, such as 'production'"
+        },
+        "allowedValues": [
+          "APPLICATION INSIGHTS",
+          "ASRC ANALYTICS",
+          "AUTOBID",
+          "AUTOBID DB",
+          "AKS",
+          "AVD",
+          "ALTERYX",
+          "ASR",
+          "AZURE BACKUP",
+          "AZURE FILE SHARE",
+          "AZURE FILE SYNC",
+          "CREDIT CARD APP",
+          "FILE",
+          "FLEET FOCUS",
+          "DATA FACTORY",
+          "DATA & ANALYTICS",
+          "INTUNE",
+          "LOGS",
+          "SOPHOS",
+          "DM2",
+          "SFTP",
+          "SERVICE BUS",
+          "MULTIPLE APPLICATIONS",
+          "NETWORK DMZ",
+          "NETWORK",
+          "SYNAPSE",
+          "MERAKI",
+          "MIKE ESTIMATING",
+          "MULTIPLE",
+          "MONGODB",
+          "MSACCESS",
+          "UNKNOWN",
+          "StartStopV2",
+          "AZURE MIGRATE",
+          "BACKUP REPORTS",
+          "REPORTING",
+          "RESOURCE MOVER",
+          "CLOUDSHELL",
+          "WINDOWS VIRTUAL DESKTOP",
+          "VIRTUAL MACHINE",
+          "AZURE SITE RECOVERY",
+          "NETWORK WATCHER",
+          "LOG ANALYTICS",
+          "PURVIEW",
+          "Microsoft Purview",
+          "PSI TESTING",
+          "STORAGE",
+          "SQL",
+          "INVENTORY",
+          "BASTION",
+          "APP INTEGRATIONS",
+          "Cobra"
+        ]
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+          },
+          {
+            "not": {
+              "field": "[concat('tags[', parameters('tagName'), ']')]",
+              "in": "[parameters('listofallowedtagValues')]"
+            }
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    },
+    "versions": [
+      "1.0.0"
+    ]
+  },
+  "id": "/subscriptions/0684bbd8-5e8d-4e96-86f1-4c24f0e259b5/providers/Microsoft.Authorization/policyDefinitions/6149d535-af88-44f6-88aa-464eea1cba7b",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "6149d535-af88-44f6-88aa-464eea1cba7b",
+  "systemData": {
+    "createdBy": "adm-adaly@asrc.com",
+    "createdByType": "User",
+    "createdAt": "2023-08-25T20:16:25.88687Z",
+    "lastModifiedBy": "adm-jcarroll@asrc.com",
+    "lastModifiedByType": "User",
+    "lastModifiedAt": "2023-12-21T16:07:43.230355Z"
+  }
+}
